@@ -10,7 +10,7 @@
 import Intro from "./views/intro.vue";
 import Form from "./views/form.vue";
 import Footer from "./views/footer.vue";
-import Home from "./views/Home.vue";
+import Home from "./views/home.vue";
 import Review from "./views/review.vue";
 
 export default {
