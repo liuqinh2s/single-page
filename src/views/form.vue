@@ -24,7 +24,7 @@
     <div class="box">
       <label>所在地区</label>
       <div class="city-picker">
-        <CityPicker />
+        <CityPicker :area="area" @select-complete="(val) => (area = val)" />
       </div>
     </div>
     <div class="box">
@@ -74,10 +74,20 @@ export default {
       sum: "1198.00",
       footImg:
         "http://xd5.gzbaiwei.cn/Uploads/Picture/2021-07-15/2021071514245315139.jpg",
+      area: {
+        provinceId: null,
+        cityId: null,
+        countyId: null,
+      },
     };
   },
   components: {
     CityPicker,
+  },
+  watch: {
+    area(val) {
+      console.log(val);
+    },
   },
 };
 </script>
