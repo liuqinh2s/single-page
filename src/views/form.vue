@@ -24,10 +24,7 @@
     <div class="box">
       <label>所在地区</label>
       <div class="city-picker">
-        <select v-for="(area, range) in areaList" :key="range">
-          <option>{{ defaultOption(range) }}</option>
-          <option v-for="(name, code) in area" :key="code">{{ name }}</option>
-        </select>
+        <CityPicker />
       </div>
     </div>
     <div class="box">
@@ -69,41 +66,18 @@
   </div>
 </template>
 <script>
-import { areaList } from "@vant/area-data";
+import CityPicker from "../components/CityPicker.vue";
 
 export default {
   data() {
     return {
       sum: "1198.00",
-      areaList,
       footImg:
         "http://xd5.gzbaiwei.cn/Uploads/Picture/2021-07-15/2021071514245315139.jpg",
     };
   },
-  created() {
-    console.log(areaList);
-  },
-  methods: {
-    defaultOption(index) {
-      let option = "";
-      switch (index) {
-        case "city_list": {
-          option = "请选择城市";
-          break;
-        }
-        case "county_list": {
-          option = "请选择区县";
-          break;
-        }
-        case "province_list": {
-          option = "请选择省份";
-          break;
-        }
-        default:
-          break;
-      }
-      return option;
-    },
+  components: {
+    CityPicker,
   },
 };
 </script>
@@ -203,16 +177,6 @@ em {
   min-height: 34px;
   margin-left: 70px;
   line-height: 35px;
-}
-.city-picker select {
-  float: left;
-  width: 32%;
-  margin-right: 1.2%;
-  text-align: center;
-  height: 35px;
-  line-height: 35px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
 }
 form textarea {
   width: 94%;
