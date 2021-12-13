@@ -17,4 +17,12 @@ export default {
       data,
     });
   },
+  // 获取订单
+  getOrder(phone) {
+    return request({
+      url: "/getOrder",
+      method: "get",
+      data: { phone },
+    });
+  },
 };

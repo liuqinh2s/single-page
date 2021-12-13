@@ -84,23 +84,29 @@
   <div class="submit" @click="submit">填写好了，立即提交订单!</div>
   <div class="search">
     <dt>
-      <input type="text" placeholder="请填写手机号码查询订单信息" />
+      <input
+        type="text"
+        placeholder="请填写手机号码查询订单信息"
+        v-model="searchPhone"
+      />
     </dt>
-    <span>查询</span>
+    <span @click="searchOrder">查询</span>
   </div>
   <div class="foot-img">
     <img :src="footImg" />
   </div>
 </template>
 <script>
-import CityPicker from "../components/CityPicker.vue";
-import NumCounter from "../components/NumCounter.vue";
+import CityPicker from "./CityPicker.vue";
+import NumCounter from "./NumCounter.vue";
 
 import api from "@/api/api";
+import { getTime } from "@/utils/utils";
 import { areaList } from "@vant/area-data";
 
 export default {
   props: {
+    title: String,
     price: String,
     skuList: Array,
   },
@@ -121,6 +127,7 @@ export default {
       sku: null,
       areaSelected: false,
       geoLocation: "",
+      searchPhone: null,
     };
   },
   components: {
@@ -176,6 +183,7 @@ export default {
       }
     },
     post() {
+      console.log(this.title);
       api
         .submit({
           num: this.num,
@@ -190,10 +198,16 @@ export default {
           sku: this.sku || this.skuList[0],
           sum: this.sum(),
           geoLocation: this.geoLocation,
+          time: getTime(),
+          orderId: Date.now().toString() + this.phone.slice(7, 11),
+          goodsName: this.title,
         })
         .then((res) => {
           console.log(res);
         });
+    },
+    searchOrder() {
+      this.$router.push({ name: "Order", query: { phone: this.searchPhone } });
     },
   },
 };
