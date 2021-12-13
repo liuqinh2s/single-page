@@ -31,13 +31,15 @@
 </template>
 <script>
 export default {
+  props: {
+    price: String,
+  },
   data() {
     return {
       banner:
         "http://xd5.gzbaiwei.cn/Uploads/Picture/2021-07-14/2021071415125792692.jpg",
       peopleNum: 99,
       goodsNum: 901,
-      price: "1198.00",
       originPrice: "1588.00",
       hour: 19,
       minute: 4,

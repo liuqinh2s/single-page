@@ -1,26 +1,43 @@
 <template>
-  <Home />
+  <Home :price="price" />
   <Intro />
   <Review />
-  <Form />
+  <Form :price="price" :skuList="skuList" />
   <Footer />
 </template>
 
 <script>
+import Home from "./views/home.vue";
 import Intro from "./views/intro.vue";
 import Form from "./views/form.vue";
 import Footer from "./views/footer.vue";
-import Home from "./views/home.vue";
 import Review from "./views/review.vue";
+import api from "@/api/api";
 
 export default {
   name: "App",
+  data() {
+    return {
+      price: "1198.00",
+      skuId: null,
+      skuList: [],
+    };
+  },
   components: {
     Intro,
     Review,
     Form,
     Footer,
     Home,
+  },
+  mounted() {
+    api.getGoods(110).then((res) => {
+      this.price = res[0].price;
+      this.skuId = res[0].skuId;
+      res.map((item) => {
+        this.skuList.push(item.skuId);
+      });
+    });
   },
 };
 </script>
